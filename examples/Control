@@ -1,0 +1,40 @@
+// if, else if, else
+if(true) {
+    
+} else if(false) {
+
+} else {
+
+}
+
+// while
+while(true) {
+
+}
+
+// do-while
+do {
+
+} while(false);
+
+// for
+for(ubyte i = 0; i <= 100; i++) {
+
+}
+
+int val = 2;
+// switch, case
+switch(val) {
+    case(0) {
+
+    }
+    case(1) {
+
+    }
+    case(2) {
+
+    }
+    default {
+
+    }
+}
