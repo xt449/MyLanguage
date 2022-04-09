@@ -1,0 +1,29 @@
+// Imports are always used at the top of the file
+import just.another.One;
+
+// Classes must have a "package" defined as part of the "name"
+class io.github.xt449.ExampleClass {
+
+    // Instance variable
+    int iField;
+
+    // Constructor without parameters
+    ExampleClass() {
+
+    }
+    
+    // Constructor with parameter
+    ExampleClass(int initialValue) {
+        iField = initialValue;
+    }
+
+    // Deconstructor
+    ~ExampleClass() {
+
+    }
+
+    // Instance function/method
+    int getValue() {
+        return iField;
+    }
+}

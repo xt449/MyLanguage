@@ -12,6 +12,7 @@ float aFloat = 0F;
 double aDouble = 0D;
 char[] aCharacterArray = "example";
 
+// Use "new" to create a new pointer
 bool* aBooleanPointer = new bool(false);
 ubyte* anUnsignedBytePointer = new ubyte(0);
 byte* aSignedBytePointer = new byte(0);
@@ -26,6 +27,7 @@ float* aFloatPointer = new float(0F);
 double* aDoublePointer = new double(0D);
 char[][] aCharacterArrayPointer = { "example" };
 
+// Use "delete" to delete a pointer
 delete(aBooleanPointer);
 delete(anUnsignedBytePointer);
 delete(aSignedBytePointer);
