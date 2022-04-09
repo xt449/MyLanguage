@@ -1,0 +1,12 @@
+// To allow functions in script files to be accessed in another location, define how it can be imported.
+export some.macro.Library;
+
+// When a script function is not static, it is only accessable in the file it is defined.
+void aPrivateScriptFunction() {
+
+}
+
+// When a script function is static, it is accessable in any files that import the defined "export" location.
+static void anExportedScriptFunction() {
+    // Note: static functions can not access ANY variables within its own file.
+}

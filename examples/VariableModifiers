@@ -1,0 +1,5 @@
+// No modifiers
+int zero = 0;
+
+// Read-only modifier
+const int one = 1;

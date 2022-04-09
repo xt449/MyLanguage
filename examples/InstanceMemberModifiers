@@ -1,0 +1,74 @@
+class io.github.xt449.InstanceMemberModifiers {
+
+    // Private instance variable
+    private int aPrivateField;
+
+    // Protected instance variable
+    protected int aProtectedField;
+
+    // Public instance variable
+    public int aPublicField;
+
+    // When no scope is provided, instance variables are Private
+    int anotherPrivateField;
+
+    // Private constructor
+    private ExampleClass() {
+
+    }
+
+    // Protected constructor
+    protected ExampleClass() {
+
+    }
+
+    // Public constructor
+    public ExampleClass() {
+
+    }
+
+    // When no scope is provided, constructors are Private
+    ExampleClass() {
+
+    }
+
+    // Private deconstructor
+    private ~ExampleClass() {
+
+    }
+
+    // Protected deconstructor
+    protected ~ExampleClass() {
+
+    }
+
+    // Public deconstructor
+    public ~ExampleClass() {
+
+    }
+
+    // When no scope is provided, deconstructors are Private
+    ~ExampleClass() {
+
+    }
+
+    // Private instance function/method
+    private int aPrivateFunction() {
+        return aPrivateField;
+    }
+
+    // Protected instance function/method
+    protected int aProtectedFunction() {
+        return aProtectedField;
+    }
+
+    // Public instance function/method
+    public int aPublicFunction() {
+        return aPublicField;
+    }
+
+    // When no scope is provided, instance functions/methods are Private
+    int anotherPrivateFunction() {
+        return anotherPrivateField;
+    }
+}
