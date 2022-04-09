@@ -1,0 +1,168 @@
+// Hangman "Script".
+
+import std.lang.Console;
+import std.lang.InputFileStream;
+import std.util.Linkedlist;
+import std.util.RandomGen;
+import std.util.String;
+
+const char[] hangerIndent = "		 ";
+
+const char[] hanger0 = "  _____\n";
+const char[] hanger1 = "  |   |\n";
+const char[][] hanger2 = { "  |\n", "  |   O\n", "  |   O\n", "  |   O\n", "  |   O\n",  "  |   O\n",  "  |   O\n" };
+const char[][] hanger3 = { "  |\n", "  |\n", "  |   |\n", "  |   |\n", "  |   |\n",  "  |  \\|\n", "  |  \\|/\n" };
+const char[][] hanger4 = { "  |\n", "  |\n", "  |   |\n", "  |   |\n", "  |   |\n",  "  |   |\n",  "  |   |\n" };
+const char[][] hanger5 = { "  |\n", "  |\n", "  |\n", "  |  /\n", "  |  / \\\n", "  |  / \\\n", "  |  / \\\n" };
+const char[] hanger6 = "  |\n";
+const char[] hanger7 = "__|______\n";
+
+const char[] alphabetIndent = "  ";
+
+char[] alphabetRemaining = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ubyte wrongGuesses = 0;
+String wordGuess;
+
+void draw() {
+	Console.clear();
+	
+	Console.println();
+	Console.print(hangerIndent, hanger0);
+	Console.print(hangerIndent, hanger1);
+	Console.print(hangerIndent, hanger2[wrongGuesses]);
+	Console.print(hangerIndent, hanger3[wrongGuesses]);
+	Console.print(hangerIndent, hanger4[wrongGuesses]);
+	Console.print(hangerIndent, hanger5[wrongGuesses]);
+	Console.print(hangerIndent, hanger6);
+	Console.print(hangerIndent, hanger7;)
+	Console.println();
+	Console.println();
+
+	String space = String(14 - wordGuess.length, ' ');
+
+	Console.print(space);
+	for(ubyte i = 0; i < wordGuess.length; i++) {
+		Console.print(' ', wordGuess[i]);
+	}
+	Console.println();
+
+	Console.println();
+	Console.println();
+	Console.print(alphabetIndent);
+	for(ubyte i = 0; i < alphabetRemaining.length; i++) {
+		// Wrap around halfway through alphabet
+		if(i == 13) {
+			Console.println();
+			Console.println();
+			Console.print(alphabetIndent);
+		}
+		Console.print(alphabetRemaining[i], ' ');
+	}
+	Console.println();
+	Console.println();
+}
+
+int main() {
+	uint wordLength = 0;
+	do {
+		Console.print("Please enter the number of letters to be in the word: ");
+		wordLength = Console.readuint();
+	} while(wordLength < 3);
+
+	InputFileStream dictionary = InputFileStream("words_alpha.txt");
+
+	if(!dictionary.isOpen()) {
+		return 1;
+	}
+
+	LinkedList<String> words;
+	uint size = 0;
+	String line;
+
+	while(line = dictionary.readLine()) {
+		if(line.length == wordLength) {
+			size++;
+			words.append(line.toUpper());
+		}
+	}
+
+	dictionary.close();
+
+	if(size == 0) {
+		Console.print("Invalid word length! (Press Enter...)");
+		Console.readln();
+		return 1;
+	}
+
+	Console.print("There are ", size, " words that are ", wordLength, " letters long.\n");
+
+	RandomGen gen = RandomGen();
+
+	uint randomNum = gen.uint(0, size + 1);
+	Console.println(randomNum);
+
+	String word = words.get(randomNum);
+	String wordRemaining = word;
+	
+	wordGuess = String(wordRemaining.length, '_');
+
+	Console.print("(Press Enter...)");
+	Console.readln();
+
+	// Loop start
+loop:
+	draw();
+
+	Console.print("Enter a letter to guess: ");
+
+	char guess = Console.readchar();
+	Console.readln();
+	guess = toupper(guess);
+	if(guess < 'A' || guess > 'Z') {
+		Console.print("Invalid letter! (Press Enter...)");
+		Console.readln();
+		goto loop;
+	}
+	if(wordGuess.indexOf(guess) >= 0) {
+		Console.print("You already correctly guessed this letter! (Press Enter...)");
+		Console.readln();
+		goto loop;
+	}
+
+	// Letter guess logic
+	alphabetRemaining[guess - 'A'] = '_';
+
+	uint index;
+	bool success = false;
+	do {
+		index = wordRemaining.indexOf(guess);
+		if(index < 0) {
+			if(!success) {
+				wrongGuesses++;
+			}
+			break;
+		}
+		wordGuess[index] = wordRemaining[index];
+		wordRemaining[index] = '_';
+		success = true;
+	} while(true);
+
+	if(wrongGuesses >= 6) {
+		draw();
+		Console.println("You Lost!");
+		Console.print("The word was \"", word, "\"\n\n(Press Enter...)");
+		Console.readln();
+		return 0;
+	}
+	if(wordGuess.indexOf('_') < 0) {
+		draw();
+		Console.println("You Won!");
+		Console.println();
+		Console.print("(Press Enter...)");
+		Console.readln();
+		return 0;
+	}
+
+	// Loop
+	goto loop;
+}
