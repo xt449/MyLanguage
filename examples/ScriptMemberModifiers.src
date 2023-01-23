@@ -1,0 +1,15 @@
+// To allow functions in script files to be accessed in another location, define how it can be imported.
+export some.script.Library;
+
+// Variables defined outside of a function in a script file are always private and may only be accessed by non-public functions in the same file.
+int aPrivateVariable;
+
+// When a script function is not public, it is only accessable in the file it is defined.
+void aPrivateScriptFunction() {
+
+}
+
+// When a script function is public, it is accessable in any files that import the defined "export" location.
+public void anExportedScriptFunction() {
+    // Note: public functions can not access ANY variables within its own file.
+}
